@@ -12,7 +12,7 @@ const requestIDKey = 42
 func Println(ctx context.Context, msg string) {
 	// We need to get a request ID key
 	// ctx.Value should return id or nil
-	id, ok := ctx.Value(ctx).(int64)
+	id, ok := ctx.Value(requestIDKey).(int64)
 	if !ok {
 		log.Println("could not find request ID in context")
 		return
