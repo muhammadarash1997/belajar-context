@@ -13,9 +13,16 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
 	log.Printf("handler started")
 	defer log.Printf("handler ended")
 
-	time.Sleep(5 * time.Second)
-	fmt.Fprintln(w, "hello")
+	select {
+	case <-time.After(5 * time.Second):
+		fmt.Fprintln(w, "hello")
+	case <-ctx.Done():
+		err := ctx.Err()
+		log.Print(err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
