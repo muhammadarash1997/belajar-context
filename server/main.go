@@ -15,7 +15,7 @@ import (
 // having ID each request sent by client
 
 func main() {
-	flag.Parse()
+	flag.Parse()	// <-- untuk mengambil parameter yang dilempar dari command line ketika memanggil aplikasi
 	http.HandleFunc("/", log.Decorate(handler))	// <-- this Decorate is just for updating context
 	panic(http.ListenAndServe("127.0.0.1:8080", nil))
 }
